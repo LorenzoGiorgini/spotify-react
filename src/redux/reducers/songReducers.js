@@ -14,7 +14,6 @@ const songReducers = (state = songInitialState, action) => {
         ...state,
         playerSong: payload,
       };
-
     case ADD_TO_FAVOURITES:
       return {
         ...state,

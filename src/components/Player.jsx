@@ -3,7 +3,7 @@ import { Row } from "react-bootstrap";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
-  return state.song.playerSong;
+  return state.song;
 };
 
 const Player = (props) => (
@@ -11,17 +11,19 @@ const Player = (props) => (
     <Row>
       <div className="col-lg-10 offset-lg-2">
         <Row>
-          {props && (
-            <div className="d-flex ">
-              <img
-                src={`https://e-cdns-images.dzcdn.net/images/cover/${props.md5_image}/50x50-000000-80-0-0.jpg`}
-              />
-              <div className="d-flex flex-column">
-                <h6>{props.title_short}</h6>
-                <a>{props.artist.name}</a>
-              </div>
-            </div>
-          )}
+          <div className="d-flex ">
+            {props.playerSong !== undefined && (
+              <>
+                <img
+                  src={`https://e-cdns-images.dzcdn.net/images/cover/${props.playerSong.md5_image}/50x50-000000-80-0-0.jpg`}
+                />
+                <div className="d-flex flex-column">
+                  <h6>{props.playerSong.title_short}</h6>
+                  <a>{props.playerSong?.artist?.name}</a>
+                </div>
+              </>
+            )}
+          </div>
 
           <div className="col-6 col-md-4 col-lg-2 offset-3 offset-md-4 offset-lg-5 playerControls mt-1">
             <Row>
