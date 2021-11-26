@@ -1,19 +1,26 @@
 import { GET_ARTIST_DATA } from "../actions/actions";
-import { initialState } from "../store/store";
 
-const homeReducers = (state = initialState.home, action) => {
+const homeInitialState = {
+  rockSongs: [],
+  popSongs: [],
+  hipHopSongs: [],
+};
+
+
+const homeReducers = (state = homeInitialState, action) => {
   const { payload, type } = action;
 
   switch (type) {
     case GET_ARTIST_DATA:
       return {
         ...state,
-        homeData: payload,
+        [payload.key]: payload.value, 
       };
     default:
       return state;
   }
 };
+
 
 export const handleArtist = (artistName, category) => {
   return async (dispatch) => {
@@ -30,20 +37,19 @@ export const handleArtist = (artistName, category) => {
           }),
         }
       );
+
       let result = await response.json();
       let songInfo = result.data;
-      
+
       dispatch({
         type: GET_ARTIST_DATA,
-        payload: {key: category, data: songInfo[0]},
-      })
-      
+        payload: { key: category, value: songInfo },
+      });
     } catch (err) {
       console.log(err);
     }
   };
 };
-
 
 
 export default homeReducers;
