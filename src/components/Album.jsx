@@ -1,44 +1,29 @@
 import React from "react";
 import Song from "./Song";
 import { Row } from "react-bootstrap";
+import { getAlbumInfo } from "../redux/reducers/albumReducers";
+
+import { connect } from "react-redux";
+
+const mapStateToProps = (state) => {
+  return state.album
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  getAlbum: (albumId) => { dispatch(getAlbumInfo(albumId)) }
+})
 
 class Album extends React.Component {
-  state = {
-    album: {},
-    songs: [],
-  };
 
   componentDidMount = async () => {
     let albumId = this.props.match.params.id;
-
-    let headers = new Headers({
-      "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
-      "X-RapidAPI-Key": "222902beabmshb95a65b737cead6p1f3ac9jsn23ced94c0d20",
-    });
-
-    try {
-      let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/deezer/album/" + albumId,
-        {
-          method: "GET",
-          headers,
-        }
-      );
-
-      if (response.ok) {
-        let album = await response.json();
-        this.setState({
-          album,
-          songs: album.tracks.data,
-        });
-      }
-    } catch (exception) {
-      console.log(exception);
-    }
+    await this.props.getAlbum(albumId)
   };
 
   render() {
+
     return (
+      this.props.album !== null &&
       <div className="col-12 col-md-9 offset-md-3 mainPage">
         <Row className="mb-3">
           <div className="col-9 col-lg-11 mainLinks d-none d-md-flex">
@@ -50,19 +35,19 @@ class Album extends React.Component {
           </div>
         </Row>
         <Row>
-          {this.state.album.cover && (
+          {this.props.album.cover && (
             <div className="col-md-3 pt-5 text-center" id="img-container">
               <img
-                src={this.state.album.cover}
+                src={this.props.album.cover}
                 className="card-img img-fluid"
                 alt="Album"
               />
               <div className="mt-4 text-center">
-                <p className="album-title">{this.state.album.title}</p>
+                <p className="album-title">{this.props.album.title}</p>
               </div>
               <div className="text-center">
                 <p className="artist-name">
-                  {this.state.album.artist ? this.state.album.artist.name : ""}
+                  {this.props.album.artist ? this.props.album.artist.name : ""}
                 </p>
               </div>
               <div className="mt-4 text-center">
@@ -75,7 +60,7 @@ class Album extends React.Component {
           <div className="col-md-8 p-5">
             <Row>
               <div className="col-md-10 mb-5" id="trackList">
-                {this.state.songs.map((song) => (
+                {this.props.songs.map((song) => (
                   <Song track={song} key={song.id} />
                 ))}
               </div>
@@ -87,4 +72,4 @@ class Album extends React.Component {
   }
 }
 
-export default Album;
+export default connect(mapStateToProps, mapDispatchToProps)(Album);

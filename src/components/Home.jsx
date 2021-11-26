@@ -63,7 +63,7 @@ class Home extends React.Component {
     while (hipHopRandomArtists.length < 4) {
       let artist =
         this.hipHopArtists[
-          Math.floor(Math.random() * this.hipHopArtists.length)
+        Math.floor(Math.random() * this.hipHopArtists.length)
         ];
       if (!hipHopRandomArtists.includes(artist)) {
         hipHopRandomArtists.push(artist);
