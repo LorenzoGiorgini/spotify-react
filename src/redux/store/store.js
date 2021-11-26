@@ -2,11 +2,13 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 
 import homeReducers from "../reducers/homeReducers";
+import albumReducers from "../reducers/albumReducers";
 
 
 
 const mainReducer = combineReducers({
   home: homeReducers,
+  album: albumReducers,
 });
 
 

@@ -1,1 +1,3 @@
 export const GET_ARTIST_DATA = 'GET_ARTIST_DATA';
+export const GET_ALBUM_DATA = 'GET_ALBUM_DATA';
+export const GET_SONG_DATA = 'GET_SONG_DATA';
