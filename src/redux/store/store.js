@@ -1,32 +1,21 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 
-
-
-
-export const initialState = {
-    home: {
-        rockSongs: [],
-        popSongs: [],
-        hipHopSongs: [],
-    }
-
-}
-
+import homeReducers from "../reducers/homeReducers";
 
 
 
 const mainReducer = combineReducers({
-
-})
-
+  home: homeReducers,
+});
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+
+
 const configureStore = createStore(
   mainReducer,
-  initialState,
   composeEnhancers(applyMiddleware(thunk))
 );
 
