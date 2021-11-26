@@ -2,12 +2,22 @@ import React from "react";
 import AlbumCard from "./AlbumCard";
 import { Row, Col } from "react-bootstrap";
 
-import {connect} from "react-redux"
+import { connect } from "react-redux";
 
-import {handleArtist} from "../redux/reducers/homeReducers"
+import { handleArtist } from "../redux/reducers/homeReducers";
+
+const mapStateToProps = (state) => {
+  return state.home;
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getArtists: (artistName, category) =>
+      dispatch(handleArtist(artistName, category)),
+  };
+};
 
 class Home extends React.Component {
-
   rockArtists = [
     "queen",
     "u2",
@@ -53,7 +63,7 @@ class Home extends React.Component {
     while (hipHopRandomArtists.length < 4) {
       let artist =
         this.hipHopArtists[
-          Math.floor(Math.random() * this.hipHopArtists.length)
+        Math.floor(Math.random() * this.hipHopArtists.length)
         ];
       if (!hipHopRandomArtists.includes(artist)) {
         hipHopRandomArtists.push(artist);
@@ -61,13 +71,13 @@ class Home extends React.Component {
     }
 
     for (let j = 0; j < rockRandomArtists.length; j++)
-      await this.handleArtist(rockRandomArtists[j], "rockSongs");
+      await this.props.getArtists(rockRandomArtists[j], "rockSongs");
 
     for (let k = 0; k < popRandomArtists.length; k++)
-      await this.handleArtist(popRandomArtists[k], "popSongs");
+      await this.props.getArtists(popRandomArtists[k], "popSongs");
 
     for (let l = 0; l < hipHopRandomArtists.length; l++)
-      await this.handleArtist(hipHopRandomArtists[l], "hipHopSongs");
+      await this.props.getArtists(hipHopRandomArtists[l], "hipHopSongs");
   };
 
   render() {
@@ -106,7 +116,7 @@ class Home extends React.Component {
                     className="row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3"
                     id="rockSection"
                   >
-                    {this.state.rockSongs.map((song) => (
+                    {this.props.rockSongs.map((song) => (
                       <AlbumCard song={song} key={song.id} />
                     ))}
                   </Row>
@@ -121,7 +131,7 @@ class Home extends React.Component {
                     className="row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3"
                     id="popSection"
                   >
-                    {this.state.popSongs.map((song) => (
+                    {this.props.popSongs.map((song) => (
                       <AlbumCard song={song} key={song.id} />
                     ))}
                   </Row>
@@ -136,7 +146,7 @@ class Home extends React.Component {
                     className="row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3"
                     id="hipHopSection"
                   >
-                    {this.state.hipHopSongs.map((song) => (
+                    {this.props.hipHopSongs.map((song) => (
                       <AlbumCard song={song} key={song.id} />
                     ))}
                   </Row>
@@ -150,4 +160,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
