@@ -1,0 +1,1 @@
+export const GET_ARTIST_DATA = 'GET_ARTIST_DATA';

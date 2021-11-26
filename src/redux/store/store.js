@@ -4,7 +4,12 @@ import thunk from "redux-thunk";
 
 
 
-const initialState = {
+export const initialState = {
+    home: {
+        rockSongs: [],
+        popSongs: [],
+        hipHopSongs: [],
+    }
 
 }
 
