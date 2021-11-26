@@ -1,11 +1,28 @@
 import React from "react";
 import { Row } from "react-bootstrap";
+import { connect } from "react-redux";
 
-const Player = () => (
+const mapStateToProps = (state) => {
+  return state.song.playerSong;
+};
+
+const Player = (props) => (
   <div className="container-fluid fixed-bottom bg-container pt-1">
     <Row>
       <div className="col-lg-10 offset-lg-2">
         <Row>
+          {props && (
+            <div className="d-flex ">
+              <img
+                src={`https://e-cdns-images.dzcdn.net/images/cover/${props.md5_image}/50x50-000000-80-0-0.jpg`}
+              />
+              <div className="d-flex flex-column">
+                <h6>{props.title_short}</h6>
+                <a>{props.artist.name}</a>
+              </div>
+            </div>
+          )}
+
           <div className="col-6 col-md-4 col-lg-2 offset-3 offset-md-4 offset-lg-5 playerControls mt-1">
             <Row>
               <a href="/">
@@ -44,4 +61,4 @@ const Player = () => (
   </div>
 );
 
-export default Player;
+export default connect(mapStateToProps)(Player);
