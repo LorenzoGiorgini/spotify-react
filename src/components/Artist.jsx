@@ -66,7 +66,7 @@ class Artist extends React.Component {
                     <AlbumCard song={song} key={song.id} />
                   ))}
                 </Row>
-              </div>
+              </div> 
             </Col>
           </Row>
         </div>
