@@ -24,15 +24,15 @@ const mapDispatchToProps = (dispatch) => ({
       payload: track
     })
   },
-  removesSongFromLiked : (index) => {
+  removesSongFromLiked : (id) => {
     dispatch({
       type: REMOVE_FROM_FAVOURITES,
-      payload: index
+      payload: id
     })
   }
 })
 
-const Song = ({ track , song , changePlayerSong, addSongToLiked, removesSongFromLiked , liked , index }) => (
+const Song = ({ track , song , changePlayerSong, addSongToLiked, removesSongFromLiked , liked }) => (
   <div className="py-3 trackHover">
     <BsFillPlayFill  onClick={() => {
       return changePlayerSong(track)
@@ -44,7 +44,7 @@ const Song = ({ track , song , changePlayerSong, addSongToLiked, removesSongFrom
     
     {
       liked.find(item => item.id === track.id) ? (
-        <AiFillHeart onClick={() => {removesSongFromLiked(index)}}/>
+        <AiFillHeart onClick={() => {removesSongFromLiked(track.id)}}/>
     
       ) : (
         <AiOutlineHeart onClick={() => {addSongToLiked(track)}}/>

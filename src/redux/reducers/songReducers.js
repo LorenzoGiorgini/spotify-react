@@ -22,7 +22,7 @@ const songReducers = (state = songInitialState, action) => {
     case REMOVE_FROM_FAVOURITES:
       return {
         ...state,
-        liked: state.liked.filter((item, i) => i !== payload),
+        liked: state.liked.filter((item) => item.id !== payload),
       };
     default:
       return state;
