@@ -12,7 +12,7 @@ const Player = (props) => (
       <div className="col-lg-10 offset-lg-2">
         <Row>
           <div className="d-flex ">
-            {props.playerSong !== undefined && (
+            {props.playerSong !== undefined && 
               <>
                 <img
                   src={`https://e-cdns-images.dzcdn.net/images/cover/${props.playerSong.md5_image}/50x50-000000-80-0-0.jpg`}
@@ -22,7 +22,7 @@ const Player = (props) => (
                   <a>{props.playerSong?.artist?.name}</a>
                 </div>
               </>
-            )}
+            }
           </div>
 
           <div className="col-6 col-md-4 col-lg-2 offset-3 offset-md-4 offset-lg-5 playerControls mt-1">
@@ -62,5 +62,7 @@ const Player = (props) => (
     </Row>
   </div>
 );
+
+
 
 export default connect(mapStateToProps)(Player);

@@ -60,8 +60,8 @@ class Album extends React.Component {
           <div className="col-md-8 p-5">
             <Row>
               <div className="col-md-10 mb-5" id="trackList">
-                {this.props.songs.map((song) => (
-                  <Song track={song} key={song.id} />
+                {this.props.songs.map((song, index) => (
+                  <Song track={song} key={song.id} index={index}/>
                 ))}
               </div>
             </Row>

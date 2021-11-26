@@ -17,12 +17,12 @@ const songReducers = (state = songInitialState, action) => {
     case ADD_TO_FAVOURITES:
       return {
         ...state,
-        favourites: [...state.liked, payload],
+        liked: [...state.liked, payload],
       };
     case REMOVE_FROM_FAVOURITES:
       return {
         ...state,
-        favourites: state.liked.filter((item, i) => i !== payload),
+        liked: state.liked.filter((item, i) => i !== payload),
       };
     default:
       return state;

@@ -1,9 +1,10 @@
 import React from "react";
 import {BsFillPlayFill} from 'react-icons/bs'
+import {AiOutlineHeart , AiFillHeart} from 'react-icons/ai'
 
 import {connect} from "react-redux"
 
-import { GET_PLAYER_SONG } from "../redux/actions/actions";
+import { GET_PLAYER_SONG , ADD_TO_FAVOURITES, REMOVE_FROM_FAVOURITES } from "../redux/actions/actions";
 
 
 const mapStateToProps = (state) => {
@@ -16,10 +17,22 @@ const mapDispatchToProps = (dispatch) => ({
       type: GET_PLAYER_SONG,
       payload: track
     })
+  },
+  addSongToLiked : (track) => {
+    dispatch({
+      type: ADD_TO_FAVOURITES,
+      payload: track
+    })
+  },
+  removesSongFromLiked : (index) => {
+    dispatch({
+      type: REMOVE_FROM_FAVOURITES,
+      payload: index
+    })
   }
 })
 
-const Song = ({ track , song , changePlayerSong }) => (
+const Song = ({ track , song , changePlayerSong, addSongToLiked, removesSongFromLiked , liked , index }) => (
   <div className="py-3 trackHover">
     <BsFillPlayFill  onClick={() => {
       return changePlayerSong(track)
@@ -28,11 +41,23 @@ const Song = ({ track , song , changePlayerSong }) => (
       {track.title}
     </span>
     <small className="duration" style={{ color: "white" }}>
+    
+    {
+      liked.find(item => item.id === track.id) ? (
+        <AiFillHeart onClick={() => {removesSongFromLiked(index)}}/>
+    
+      ) : (
+        <AiOutlineHeart onClick={() => {addSongToLiked(track)}}/>
+        
+      )
+    }
+    
       {Math.floor(parseInt(track.duration) / 60)}:
       {parseInt(track.duration) % 60 < 10
         ? "0" + (parseInt(track.duration) % 60)
         : parseInt(track.duration) % 60}
     </small>
+    
   </div>
 );
 
